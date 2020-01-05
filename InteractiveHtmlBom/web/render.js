@@ -730,6 +730,7 @@ function handlePointerUp(e, layerdict) {
 
   // We haven't necessarily had a pointermove event since the interaction started, so make sure we update this now
   var ptr = layerdict.pointerStates[e.pointerId];
+  if (typeof ptr === 'undefined') return;
   ptr.distanceTravelled += Math.abs(e.offsetX - ptr.lastX) + Math.abs(e.offsetY - ptr.lastY);
 
   if (e.button == 0 && ptr.distanceTravelled < 10 && Date.now() - ptr.downTime <= 500) {
