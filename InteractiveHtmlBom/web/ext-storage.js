@@ -1,6 +1,7 @@
 var extStorageConnected = false;
 var s3;
 var importedData = '';
+var extStorageSaveTimer;
 
 function setExtStorageHost(aws_host) {
     console.log('EXT Storage Host: ' + aws_host);
@@ -27,6 +28,28 @@ function setExtStorageForcePathStyle(aws_force_path_style) {
     console.log('EXT Storage Force Path Style: ' + aws_force_path_style);
     writeStorage("extStorageForcePathStyle", aws_force_path_style);
     settings.extStorageForcePathStyle = aws_force_path_style;
+    redrawIfInitDone();
+}
+
+function setExtStorageAutoSave(aws_auto_save) {
+    console.log('EXT Storage Auto Save: ' + aws_auto_save);
+    writeStorage("extStorageForcePathStyle", aws_auto_save);
+    settings.extStorageAutoSave = aws_auto_save;
+    if (extStorageConnected) {
+        if ((!aws_auto_save) && (typeof extStorageSaveTimer === 'number')) {
+            console.log('Stopped auto-save');
+            clearInterval(extStorageSaveTimer);
+            extStorageSaveTimer = undefined;
+            extStorageSaveSettings();
+        }else{
+            if ((aws_auto_save) && (typeof extStorageSaveTimer !== 'number')) {
+                console.log('Started auto-save');
+                extStorageSaveSettings();
+            }
+        }
+    } else {
+        console.log('Skipped saving, load was not performed yet');
+    }
     redrawIfInitDone();
 }
 
@@ -126,4 +149,5 @@ function extStorageConnect() {
           signatureVersion: 'v4'
     });
     extStorageConnected = true;
+    extStorageSaveTimer = setInterval(extStorageSaveSettings, 60000);
 }

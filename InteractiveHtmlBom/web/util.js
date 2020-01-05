@@ -413,6 +413,7 @@ function overwriteSettings(newSettings) {
   document.getElementById("extStorageAccessKeyID").textContent = settings.extStorageAccessKeyID;
   document.getElementById("extStorageSecretKey").textContent = settings.extStorageSecretKey;
   document.getElementById("extStorageForcePathStyleCheckbox").checked = settings.extStorageForcePathStyle;
+  document.getElementById("extStorageAutoSaveCheckbox").checked = settings.extStorageAutoSave;
   initDone = true;
   prepCheckboxes();
   changeBomLayout(settings.bomlayout);
@@ -457,6 +458,7 @@ var settings = {
   extStorageAccessKeyID: "",
   extStorageSecretKey: "",
   extStorageForcePathStyle: true,
+  extStorageAutoSave: false,
 }
 
 function initDefaults() {
@@ -527,5 +529,6 @@ function initDefaults() {
   document.getElementById("extStorageAccessKeyID").value = settings.extStorageAccessKeyID;
   settings.extStorageSecretKey = readStorage("extStorageSecretKey");
   document.getElementById("extStorageSecretKey").value = settings.extStorageSecretKey;
-  initBooleanSetting("extStorageForcePathStyle",true, "extStorageForcePathStyleCheckbox", setExtStorageForcePathStyle);
+  initBooleanSetting("extStorageForcePathStyle", true, "extStorageForcePathStyleCheckbox", setExtStorageForcePathStyle);
+  initBooleanSetting("extStorageAutoSave", true, "extStorageAutoSaveCheckbox", setExtStorageAutoSave);
 }
