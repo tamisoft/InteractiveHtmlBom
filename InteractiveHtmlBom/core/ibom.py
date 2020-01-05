@@ -241,6 +241,14 @@ def generate_file(pcb_file_dir, pcb_file_name, pcbdata, config):
         os.makedirs(bom_file_dir)
     config_js = "var config = " + config.get_html_config()
     html = get_file_content("ibom.html")
+    # check if AWS SDK can be included for full offline op
+    if config.aws_embed:
+        # TODO: add all js gzipped, 2.5MB -> 300k
+        html = html.replace('///AWSSDKJS///', get_file_content('aws-sdk-2.597.0.min.js'))
+    else:
+        log.info("No AWS SDK embedded")
+        html = html.replace('<!-- ///AWSSDKJSEXT/// -->', '<script src="https://sdk.amazonaws.com/js/aws-sdk-2.597.0.min.js"></script>')
+    html = html.replace('///EXTSTORAGEJS///', get_file_content('ext-storage.js'))
     html = html.replace('///CSS///', get_file_content('ibom.css'))
     html = html.replace('///SPLITJS///', get_file_content('split.js'))
     html = html.replace('///LZ-STRING///', get_file_content('lz-string.js'))

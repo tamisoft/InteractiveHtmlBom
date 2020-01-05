@@ -409,6 +409,10 @@ function overwriteSettings(newSettings) {
   writeStorage("boardRotation", settings.boardRotation);
   document.getElementById("boardRotation").value = settings.boardRotation / 5;
   document.getElementById("rotationDegree").textContent = settings.boardRotation;
+  document.getElementById("extStorageHost").textContent = settings.extStorageHost;
+  document.getElementById("extStorageAccessKeyID").textContent = settings.extStorageAccessKeyID;
+  document.getElementById("extStorageSecretKey").textContent = settings.extStorageSecretKey;
+  document.getElementById("extStorageForcePathStyleCheckbox").checked = settings.extStorageForcePathStyle;
   initDone = true;
   prepCheckboxes();
   changeBomLayout(settings.bomlayout);
@@ -449,6 +453,10 @@ var settings = {
   renderDnpOutline: false,
   renderTracks: true,
   renderZones: true,
+  extStorageHost: "",
+  extStorageAccessKeyID: "",
+  extStorageSecretKey: "",
+  extStorageForcePathStyle: true,
 }
 
 function initDefaults() {
@@ -513,4 +521,11 @@ function initDefaults() {
   }
   document.getElementById("boardRotation").value = settings.boardRotation / 5;
   document.getElementById("rotationDegree").textContent = settings.boardRotation;
+  settings.extStorageHost = readStorage("extStorageHost");
+  document.getElementById("extStorageHost").value = settings.extStorageHost;
+  settings.extStorageAccessKeyID = readStorage("extStorageAccessKeyID");
+  document.getElementById("extStorageAccessKeyID").value = settings.extStorageAccessKeyID;
+  settings.extStorageSecretKey = readStorage("extStorageSecretKey");
+  document.getElementById("extStorageSecretKey").value = settings.extStorageSecretKey;
+  initBooleanSetting("extStorageForcePathStyle",true, "extStorageForcePathStyleCheckbox", setExtStorageForcePathStyle);
 }

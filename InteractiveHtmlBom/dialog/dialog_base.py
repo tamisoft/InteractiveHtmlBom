@@ -168,6 +168,10 @@ class HtmlSettingsPanelBase ( wx.Panel ):
         self.openBrowserCheckbox = wx.CheckBox( self, wx.ID_ANY, u"Open browser", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.openBrowserCheckbox.SetValue(True) 
         b_sizer.Add( self.openBrowserCheckbox, 0, wx.ALL, 5 )
+
+        self.awsEmbedCheckbox = wx.CheckBox( self, wx.ID_ANY, u"Include AWS SDK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.awsEmbedCheckbox.SetValue(True) 
+        b_sizer.Add( self.awsEmbedCheckbox, 0, wx.ALL, 5 )
         
         
         self.SetSizer( b_sizer )

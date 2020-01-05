@@ -8,6 +8,9 @@
   <style type="text/css">
 ///CSS///
   </style>
+
+<!-- ///AWSSDKJSEXT/// -->
+
   <script type="text/javascript" >
 ///////////////////////////////////////////////
 ///SPLITJS///
@@ -39,6 +42,14 @@
 
 ///////////////////////////////////////////////
 ///IBOMJS///
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+///AWSSDKJS///
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+///EXTSTORAGEJS///
 ///////////////////////////////////////////////
 
   </script>
@@ -106,6 +117,25 @@
             <div style="margin-left: 5px">Bom checkboxes</div>
             <input id="bomCheckboxes" class="menu-textbox" type=text
                    oninput="setBomCheckboxes(this.value)">
+          </label>
+          <label class="menu-label">
+            <div style="margin-left: 5px">S3 server URL</div>
+            <input id="extStorageHost" class="menu-textbox" type=text
+                   oninput="setExtStorageHost(this.value)">
+          </label>
+          <label class="menu-label">
+            <div style="margin-left: 5px">S3 access key ID</div>
+            <input id="extStorageAccessKeyID" class="menu-textbox" type=text
+                   oninput="setExtStorageAccessKeyID(this.value)">
+          </label>
+          <label class="menu-label">
+            <div style="margin-left: 5px">S3 secret key</div>
+            <input id="extStorageSecretKey" class="menu-textbox" type=password
+                   oninput="setExtStorageSecretKey(this.value)">
+          </label>
+          <label class="menu-label">
+            <input id="extStorageForcePathStyleCheckbox" type="checkbox" checked onchange="setExtStorageForcePathStyle(this.checked)">
+            S3 force path-style access (eg. for minio)
           </label>
           <label class="menu-label">
             <span class="shameless-plug">

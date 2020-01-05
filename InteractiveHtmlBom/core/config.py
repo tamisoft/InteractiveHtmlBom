@@ -55,6 +55,7 @@ class Config:
     bom_view = bom_view_choices[1]
     layer_view = layer_view_choices[1]
     open_browser = True
+    aws_embed = True
 
     # General section
     bom_dest_dir = 'bom/'  # This is relative to pcb file directory
@@ -153,6 +154,7 @@ class Config:
         f.Write('bom_view', self.bom_view)
         f.Write('layer_view', self.layer_view)
         f.WriteBool('open_browser', self.open_browser)
+        f.WriteBool('aws_embed', self.aws_embed)
 
         f.SetPath('/general')
         bom_dest_dir = self.bom_dest_dir
@@ -196,6 +198,7 @@ class Config:
         self.layer_view = self.layer_view_choices[
             dlg.html.layerDefaultView.Selection]
         self.open_browser = dlg.html.openBrowserCheckbox.IsChecked()
+        self.aws_embed = dlg.html.awsEmbedCheckbox.IsChecked()
 
         # General
         self.bom_dest_dir = dlg.general.bomDirPicker.Path
@@ -240,6 +243,7 @@ class Config:
         dlg.html.layerDefaultView.Selection = self.layer_view_choices.index(
                 self.layer_view)
         dlg.html.openBrowserCheckbox.Value = self.open_browser
+        dlg.html.awsEmbedCheckbox.Value = self.aws_embed
 
         # General
         import os.path
@@ -320,6 +324,8 @@ class Config:
                             help='Default layer view.')
         parser.add_argument('--no-browser', help='Do not launch browser.',
                             action='store_true')
+        parser.add_argument('--no-internal-aws-sdk', help='Do not include the AWS SDK (saves 2MB, but will download on client)',
+                            action='store_true')
 
         # General
         parser.add_argument('--dest-dir', default=self.bom_dest_dir,
@@ -386,6 +392,7 @@ class Config:
         self.bom_view = args.bom_view
         self.layer_view = args.layer_view
         self.open_browser = not args.no_browser
+        self.aws_embed = not args.no_internal_aws_sdk
 
         # General
         self.bom_dest_dir = args.dest_dir
